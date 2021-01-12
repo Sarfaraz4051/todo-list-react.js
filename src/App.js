@@ -2,6 +2,7 @@ import './App.css';
 import React,{useState} from "react";
 import todo_logo from './images/logo.jpg'
 import ToDoList from './ToDoLists'
+
 class TodoImage extends React.Component{
   render(){
     return(
@@ -12,15 +13,12 @@ class TodoImage extends React.Component{
   }
 }
 
-
 const AddTodo=()=>{
 
   const [taskName,setTaskName] = useState("");
   const [tasks,setTasks] = useState([]);
-  
- 
-   //extracting previous todos after page refresh 
    
+   //extracting previous todos after page refresh 
     let oldtodos = JSON.parse(localStorage.getItem('myTodos'));
     console.log('Old Todos are: ' +oldtodos);
      
@@ -74,7 +72,7 @@ const AddTodo=()=>{
  
   const updateItem=(id, val)=>{
 
-    console.log('Updating: '+tasks[id]);
+    
 
     let sametodoo = JSON.parse(localStorage.getItem('myTodos'));
     
@@ -82,6 +80,21 @@ const AddTodo=()=>{
     console.log('local: '+sametodoo);
     localStorage.setItem('myTodos',JSON.stringify([...sametodoo] ));
     
+
+      // 1. Make a shallow copy of the items
+      let items = tasks;
+      
+      // 2. Make a shallow copy of the item you want to mutate
+     
+      console.log('items: '+items);
+      // 3. Replace the property you're intested in
+     items[id] = val;
+      // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+      //items[id] = item;
+      // 5. Set the state to our new copy
+      setTasks(items);
+      console.log('Updating: '+tasks[id]);
+
 
   }
 
@@ -109,7 +122,6 @@ const AddTodo=()=>{
   )
 }
 
-
 function App() {
   return (
     <div className="App">
@@ -118,5 +130,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
