@@ -72,17 +72,16 @@ const AddTodo=()=>{
       setTaskName('');
   }
  
-  const updateItem=(id,text)=>{
+  const updateItem=(id, val)=>{
+
     console.log('Updating: '+tasks[id]);
 
-        let sametodoo = JSON.parse(localStorage.getItem('myTodos'));
-        
-        localStorage.removeItem(sametodoo.id)
-    // sametodoo.splice(id,);
-    // localStorage.setItem('myTodos',JSON.stringify([...sametodoo] ));
+    let sametodoo = JSON.parse(localStorage.getItem('myTodos'));
     
+    sametodoo.splice(id,1,val);
+    console.log('local: '+sametodoo);
+    localStorage.setItem('myTodos',JSON.stringify([...sametodoo] ));
     
-  //  <input type="text" value={tasks[id]}/>
 
   }
 

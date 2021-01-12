@@ -1,11 +1,20 @@
-import React from "react";
+import React,{useState} from "react";
 const ToDoLists=(props)=>{
-
+    
+    
+    
+    const [task,setTask]= useState(props.text);
+    
+    
+    const updateTask=(e)=>{  
+        setTask(e.target.value);
+    }
+    
     return( 
     <div>
-        <li> 
+        <li>
+            <input type="text" onChange={updateTask}  value={task}/> 
             
-            <h4 contentEditable="true" >{props.text}</h4>
             <div>
             <button className="li-button" onClick={()=>{
                 props.deleteTodo(props.id)
@@ -13,7 +22,7 @@ const ToDoLists=(props)=>{
 
 
             <button className="li-button" onClick={()=>{
-                props.updateTodo(props.id,props.text)
+                props.updateTodo(props.id,task)
                 }}>
                     
             Update </button>
