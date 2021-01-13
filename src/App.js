@@ -41,13 +41,14 @@ const AddTodo=()=>{
     let sametodo = JSON.parse(localStorage.getItem('myTodos'));
     sametodo.splice(id,1);
     localStorage.setItem('myTodos',JSON.stringify([...sametodo] ));
+    setTasks(sametodo);
 
-    setTasks((oldTasks)=>{
-      return oldTasks.filter((arr,index)=>{
-        return index!==id;
-      })
+    // setTasks((oldTasks)=>{
+    //   return oldTasks.filter((arr,index)=>{
+    //     return index!==id;
+    //   })
       
-    })
+    // })
   }
 
 
