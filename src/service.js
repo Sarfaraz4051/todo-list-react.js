@@ -1,12 +1,7 @@
-
-
-export const getLocalStorageData=()=>{
-    
-    return JSON.parse(localStorage.getItem('myTodos'));
-    
+export const getLocalStorageData=(key)=>{    
+    return JSON.parse(localStorage.getItem(key));
 }
 
-export const setLocalStorageData=(tasks)=>{
-    localStorage.setItem('myTodos',JSON.stringify([...tasks] ));
-    
+export const setLocalStorageData=(key,tasks)=>{
+    localStorage.setItem(key,JSON.stringify([...tasks] ));
 }

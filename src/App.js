@@ -14,14 +14,11 @@ class TodoImage extends React.Component {
   }
 }
 
-
 const AddTodo = () => {
-
   const [taskName, setTaskName] = useState("");
   const [tasks, setTasks] = useState([]);
   //extracting previous todos after page refresh 
-  let oldtodos = getLocalStorageData();
-  console.log('Old Todos are: ' + oldtodos);
+  let oldtodos = getLocalStorageData('myTodos');
 
   if (oldtodos.length !== 0 && tasks.length === 0) {
     setTasks((oldTasks) => {
@@ -30,28 +27,17 @@ const AddTodo = () => {
   }
 
 
-
   const addTask = (e) => {
     setTaskName(e.target.value);
   }
 
   const deleteItem = (id) => {
-
     //Deleting item from local storage array....
-    let sametodo = getLocalStorageData();
+    let sametodo = getLocalStorageData('myTodos');
     sametodo.splice(id, 1);
-
     //localStorage.setItem('myTodos',JSON.stringify([...sametodo] ));
-    setLocalStorageData(sametodo);
-
+    setLocalStorageData('myTodos', sametodo);
     setTasks(sametodo);
-
-    // setTasks((oldTasks)=>{
-    //   return oldTasks.filter((arr,index)=>{
-    //     return index!==id;
-    //   })
-
-    // })
   }
 
 
@@ -59,45 +45,51 @@ const AddTodo = () => {
     e.preventDefault();
 
     setTasks((oldTasks) => {
-
       if (!oldTasks.includes(taskName.trim()) && taskName.trim().length > 1) {
-
-        setLocalStorageData([...oldTasks, taskName.trim()]);
-        //localStorage.setItem('myTodos',JSON.stringify([...oldTasks, taskName.trim()  ] ));
-        console.log('Array: ' + localStorage.getItem('myTodos'));
+        setLocalStorageData('myTodos', [...oldTasks, taskName.trim()]);
         return [...oldTasks, taskName];
       }
       else {
         return [...oldTasks];
       }
-      //setLocalStorageData(tasks);
-
     })  //setTasks State
     setTaskName('');
-    //setLocalStorageData(tasks);
   }
 
   const updateItem = (id, val) => {
+    console.log('id: ' + id);
+    console.log('val: ' + val);
 
-    let sametodoo = getLocalStorageData();
-    sametodoo.splice(id, 1, val);
-    console.log('local: ' + sametodoo);
-    setLocalStorageData([...sametodoo]);
-    //localStorage.setItem('myTodos',JSON.stringify([...sametodoo] ));
+    let sametodoo = getLocalStorageData('myTodos');
+    if (!sametodoo.includes(val.trim())) {
+      console.log('in if and value dosent exist');
+      sametodoo.splice(id, 1, val);
+      console.log(sametodoo)
+     
+    }
+    else {
+      sametodoo.splice(id, 1);
+      console.log('in Else,,, Value already in local Storage');
+      console.log(sametodoo)
 
-    let items = tasks;
-    items[id] = val;
-    setTasks(items);
+
+    }
+    setLocalStorageData('myTodos', [...sametodoo]);
+    // let items = sametodoo;
+    // items[id] = val;
+    // console.log(items)
+    setTasks(sametodoo);
   }
 
   return (
     <div className="main">
-      <div> <h1>Add Task</h1> </div>
+      <div>
+        <h1>Add Task</h1>
+      </div>
       <div>
         <input type="text" placeholder="Enter Task" value={taskName} className="input-text" onChange={addTask} />
         <button onClick={addItem}> Add </button>
       </div>
-
       <div>
         <ul>
           {tasks.map((task, index) => {

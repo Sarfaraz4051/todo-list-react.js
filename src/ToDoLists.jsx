@@ -1,6 +1,6 @@
 import React,{useState,useRef, useEffect} from "react";
 const ToDoLists=(props)=>{
-        
+
     const [task,setTask]= useState(props.text);
     const [update,setUpdate]= useState(false);
     const inputText = useRef('');
@@ -21,24 +21,24 @@ const ToDoLists=(props)=>{
     <div>
         <li>
             <input type="text" ref={inputText} onChange={updateTask}  value={task} disabled={!update}/> 
-            
             <div>
                 <button className="li-button" onClick={()=>{
                     props.deleteTodo(props.id)
                     }}>Delete </button>
 
             {!update &&
-            <button className="li-button" onClick={()=>{
-                setUpdate(true);
-            }}>
-            Update </button>
+                <button className="li-button" 
+                    onClick={()=>{
+                        setUpdate(true);
+                    }}>
+                Update </button>    
             }
 
             {update &&   
             (<button className="li-button" onClick={()=>{
-                    setUpdate(false);
-                    props.updateTodo(props.id,task)
-                    }}>  Save Changes </button>
+                setUpdate(false);
+                props.updateTodo(props.id,task)
+                }}>  Save Changes </button>
             )}
             </div>
         </li>
