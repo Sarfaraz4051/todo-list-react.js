@@ -57,22 +57,12 @@ const AddTodo = () => {
   }
 
   const updateItem = (id, val) => {
-    console.log('id: ' + id);
-    console.log('val: ' + val);
-
     let sametodoo = getLocalStorageData('myTodos');
     if (!sametodoo.includes(val.trim())) {
-      console.log('in if and value dosent exist');
       sametodoo.splice(id, 1, val);
-      console.log(sametodoo)
-     
     }
     else {
       sametodoo.splice(id, 1);
-      console.log('in Else,,, Value already in local Storage');
-      console.log(sametodoo)
-
-
     }
     setLocalStorageData('myTodos', [...sametodoo]);
     // let items = sametodoo;

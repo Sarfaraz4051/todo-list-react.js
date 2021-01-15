@@ -26,6 +26,7 @@ li{
   background-color: rgb(138, 184, 53);
   width:500px;
   border-bottom: 2px solid black;
+   border-top: 2px solid black;
   margin-bottom: 12px;
   padding: 10px;
 }
